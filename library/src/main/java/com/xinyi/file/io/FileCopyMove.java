@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.io;
+package com.xinyi.file.io;
 
 import android.util.Log;
 import java.io.*;
@@ -124,8 +124,8 @@ public final class FileCopyMove {
      * @return true: 复制成功；false: 复制失败
      */
     public static boolean copyDir(String srcDirPath, String destDirPath) {
-        File srcDir = FileUtil.getFileByPath(srcDirPath);
-        File destDir = FileUtil.getFileByPath(destDirPath);
+        File srcDir = FileBasicUtil.getFileByPath(srcDirPath);
+        File destDir = FileBasicUtil.getFileByPath(destDirPath);
         return copyOrMove(srcDir, destDir, false);
     }
 
@@ -137,8 +137,8 @@ public final class FileCopyMove {
      * @return true: 复制成功；false: 复制失败
      */
     public static boolean copyFile(String srcFilePath, String destFilePath) {
-        File srcFile = FileUtil.getFileByPath(srcFilePath);
-        File destFile = FileUtil.getFileByPath(destFilePath);
+        File srcFile = FileBasicUtil.getFileByPath(srcFilePath);
+        File destFile = FileBasicUtil.getFileByPath(destFilePath);
         return copyOrMove(srcFile, destFile, false);
     }
 
@@ -150,8 +150,8 @@ public final class FileCopyMove {
      * @return true: 移动成功；false: 移动失败
      */
     public static boolean moveDir(String srcDirPath, String destDirPath) {
-        File srcDir = FileUtil.getFileByPath(srcDirPath);
-        File destDir = FileUtil.getFileByPath(destDirPath);
+        File srcDir = FileBasicUtil.getFileByPath(srcDirPath);
+        File destDir = FileBasicUtil.getFileByPath(destDirPath);
         return copyOrMove(srcDir, destDir, true);
     }
 
@@ -163,8 +163,8 @@ public final class FileCopyMove {
      * @return true: 移动成功；false: 移动失败
      */
     public static boolean moveFile(String srcFilePath, String destFilePath) {
-        File srcFile = FileUtil.getFileByPath(srcFilePath);
-        File destFile = FileUtil.getFileByPath(destFilePath);
+        File srcFile = FileBasicUtil.getFileByPath(srcFilePath);
+        File destFile = FileBasicUtil.getFileByPath(destFilePath);
         return copyOrMove(srcFile, destFile, true);
     }
 }

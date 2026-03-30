@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.zip;
+package com.xinyi.file.zip;
 
 import android.util.Log;
 
@@ -30,9 +30,9 @@ public class StandardZipUtil {
     /**
      * 批量压缩多个文件或目录到一个 ZIP 文件中
      *
-     * @param resFiles    待压缩的文件或目录集合
-     * @param zipFile     生成的 ZIP 文件
-     * @param comment     ZIP 文件的注释（可为 null 或空字符串）
+     * @param resFiles 待压缩的文件或目录集合
+     * @param zipFile 生成的 ZIP 文件
+     * @param comment ZIP 文件的注释（可为 null 或空字符串）
      * @return {@code true}：压缩成功；{@code false}：压缩失败
      * @throws IOException 当 IO 出错时抛出异常
      */

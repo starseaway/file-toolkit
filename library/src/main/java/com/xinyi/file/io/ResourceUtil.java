@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.io;
+package com.xinyi.file.io;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 资源文件访问工具类。
+ * 资源文件访问工具类
+ *
  * <p>
- * 提供访问应用内 assets 和 raw 目录的资源文件的功能。
- * 支持复制 assets 资源到 filesDir 或 cacheDir 目录。
+ *   提供访问应用内 assets 和 raw 目录的资源文件的功能。
+ *   支持复制 assets 资源到 filesDir 或 cacheDir 目录。
  * </p>
  *
  * @author 新一
@@ -21,11 +22,11 @@ import java.io.InputStream;
 public class ResourceUtil {
 
     /**
-     * 从 assets 目录复制文件到目标目录。
+     * 从 assets 目录复制文件到目标目录
      *
-     * @param context      应用上下文
-     * @param assetName    assets 文件名
-     * @param targetDir    目标目录（例如：context.getFilesDir()）
+     * @param context 应用上下文
+     * @param assetName assets 文件名
+     * @param targetDir 目标目录（例如：context.getFilesDir()）
      * @return 目标文件对象
      * @throws IOException 复制失败时抛出异常
      */
@@ -48,10 +49,10 @@ public class ResourceUtil {
     }
 
     /**
-     * 读取 assets 目录下的文本文件内容。
+     * 读取 assets 目录下的文本文件内容
      *
-     * @param context   应用上下文
-     * @param fileName  assets 目录下的文件名
+     * @param context 应用上下文
+     * @param fileName assets 目录下的文件名
      * @return 文件内容字符串
      * @throws IOException 读取失败时抛出异常
      */
@@ -68,10 +69,10 @@ public class ResourceUtil {
     }
 
     /**
-     * 读取 raw 资源文件内容。
+     * 读取 raw 资源文件内容
      *
      * @param context 应用上下文
-     * @param resId   raw 资源 ID
+     * @param resId raw 资源 ID
      * @return 文件内容字符串
      * @throws IOException 读取失败时抛出异常
      */
@@ -88,9 +89,9 @@ public class ResourceUtil {
     }
 
     /**
-     * 检查 assets 目录下的文件是否存在。
+     * 检查 assets 目录下的文件是否存在
      *
-     * @param context  应用上下文
+     * @param context 应用上下文
      * @param fileName assets 目录下的文件名
      * @return 如果文件存在返回 true，否则返回 false
      */

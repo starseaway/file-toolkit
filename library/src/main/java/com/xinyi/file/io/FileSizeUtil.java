@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.io;
+package com.xinyi.file.io;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -61,7 +61,7 @@ public final class FileSizeUtil {
      * @return 格式化后的大小字符串
      */
     public static String getFileFormatSize(String filePath) {
-        File file = FileUtil.getFileByPath(filePath);
+        File file = FileBasicUtil.getFileByPath(filePath);
         if (file == null || !file.exists() || !file.isFile()) return "0B";
         return formatFileSize(file.length());
     }
@@ -73,7 +73,7 @@ public final class FileSizeUtil {
      * @return 格式化后的大小字符串
      */
     public static String getDirectoryFormatSize(String directoryPath) {
-        File dir = FileUtil.getFileByPath(directoryPath);
+        File dir = FileBasicUtil.getFileByPath(directoryPath);
         long size = getFileSizes(dir);
         return formatFileSize(size);
     }

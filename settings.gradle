@@ -59,6 +59,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "file-util"
+rootProject.name = "file-toolkit"
 include ':app'
 include ':library'

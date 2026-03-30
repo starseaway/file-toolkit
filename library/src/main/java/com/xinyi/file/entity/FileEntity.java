@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.entity;
+package com.xinyi.file.entity;
 
 import androidx.annotation.NonNull;
 

@@ -1,6 +1,6 @@
-package com.xinyi.utils.file.io;
+package com.xinyi.file.io;
 
-import static com.xinyi.utils.file.io.FileUtil.isSpace;
+import static com.xinyi.file.io.FileBasicUtil.isSpace;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * 文件操作类，提供文件的创建、读取、写入、重命名和删除等常见操作
+ * 文件操作类，提供文件的创建、重命名和删除等常见操作
  *
  * @author 新一
  * @since 2025/3/17 11:01
@@ -134,9 +134,11 @@ public final class FileOperation {
     /**
      * 根据当前日期和文件序号生成新的文件，确保文件名不重复。
      *
-     * <p>该方法生成一个新文件，并根据当前日期和文件序号来确保文件名唯一。文件后缀可以自定义。
-     * 它会首先创建一个以当前日期为名称的子目录，如果该目录不存在，则会创建该目录。然后，它会
-     * 依次尝试生成文件名，直到找到一个不存在的文件名为止。</p>
+     * <p>
+     *   该方法生成一个新文件，并根据当前日期和文件序号来确保文件名唯一。文件后缀可以自定义。
+     *   它会首先创建一个以当前日期为名称的子目录，如果该目录不存在，则会创建该目录。然后，它会
+     *   依次尝试生成文件名，直到找到一个不存在的文件名为止。
+     * </p>
      *
      * @param dirPath 文件存放的目录。
      * @param filePrefix 文件名前缀，用于区分不同文件名。
@@ -281,83 +283,6 @@ public final class FileOperation {
     }
 
     /**
-     * 将字符串内容写入文件
-     *
-     * @param filename 路径+文件名称
-     * @param content 写入内容
-     * @param isCover 是否覆盖原有内容（true:覆盖，false:追加）
-     * @return true: 写入成功；false: 写入失败
-     */
-    public static boolean writeFileData(String filename, String content, boolean isCover) throws IOException {
-        FileOutputStream fos = null;
-        try {
-            File file = FileUtil.getFileByPath(filename);
-            if (file == null || !file.exists()) {
-                throw new FileNotFoundException("文件不存在");
-            }
-            fos = new FileOutputStream(file, !isCover);
-            byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
-            fos.write(bytes);
-            fos.flush();
-            return true;
-        } finally {
-            if (fos != null) {
-                fos.close();
-            }
-        }
-    }
-
-    /**
-     * 读取文件内容为字符串
-     *
-     * @param fileName 路径+文件名称
-     * @return 文件内容；若失败返回空字符串
-     */
-    public static String readFileData(String fileName) throws IOException {
-        File file = FileUtil.getFileByPath(fileName);
-        if (file == null || !file.exists()) {
-            throw new FileNotFoundException("文件不存在");
-        }
-        try (FileInputStream fis = new FileInputStream(file);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8))) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append(System.lineSeparator());
-            }
-            return sb.toString();
-        } catch (IOException exception) {
-            throw new IOException("读取文件失败" + exception.getMessage(), exception);
-        }
-    }
-
-    /**
-     * 将指定文件的每一行内容读取到一个字符串列表中
-     *
-     * @param filePath 文件路径
-     * @return 每行内容组成的列表；若失败返回空列表
-     */
-    public static List<String> readLineToList(String filePath) throws IOException {
-        List<String> lines = new ArrayList<>();
-        File file = FileUtil.getFileByPath(filePath);
-        if (file != null && file.exists() && file.isFile()) {
-            try (InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
-                 BufferedReader br = new BufferedReader(isr)) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (!line.isEmpty()) {
-                        String content = line.split("\\+")[0]; // 根据需求分割字符串
-                        lines.add(content);
-                    }
-                }
-            }
-        } else {
-            throw new FileNotFoundException("文件不存在");
-        }
-        return lines;
-    }
-
-    /**
      * 重命名文件或文件夹
      *
      * @param sourcePath 源路径+文件名
@@ -365,8 +290,8 @@ public final class FileOperation {
      * @return true: 重命名成功；false: 失败
      */
     public static boolean rename(String sourcePath, String goalPath) {
-        File source = FileUtil.getFileByPath(sourcePath);
-        File goal = FileUtil.getFileByPath(goalPath);
+        File source = FileBasicUtil.getFileByPath(sourcePath);
+        File goal = FileBasicUtil.getFileByPath(goalPath);
         if (source == null || goal == null || !source.exists()) {
             return false;
         }
@@ -380,7 +305,7 @@ public final class FileOperation {
      * @return true: 删除成功；false: 删除失败
      */
     public static boolean deleteFile(String filePath) {
-        File file = FileUtil.getFileByPath(filePath);
+        File file = FileBasicUtil.getFileByPath(filePath);
         return deleteFile(file);
     }
 

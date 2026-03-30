@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.zip;
+package com.xinyi.file.zip;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +21,14 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 基于 Zip4j 2.x 最新版本提供加密压缩、分卷压缩和带进度回调的解压操作。
- * 支持：
- *  1. 普通加密压缩（压缩文件或目录，可选择是否保留目录结构）。
- *  2. 分卷压缩（支持设置分卷大小，单位为字节）。
- *  3. 解压操作（支持加密包解压，并通过 Handler 回调解压进度）。
+ * 基于 Zip4j 2.x 最新版本提供加密压缩、分卷压缩和带进度回调的解压操作
+ *
+ * <p> 支持：</p>
+ * <ul>
+ *     <li> 1. 普通加密压缩（压缩文件或目录，可选择是否保留目录结构） </li>
+ *     <li> 2. 分卷压缩（支持设置分卷大小，单位为字节）</li>
+ *     <li> 3. 解压操作（支持加密包解压，并通过 Handler 回调解压进度） </li>
+ * </ul>
  *
  * @author 新一
  * @since 2023/4/20 16:26
@@ -35,10 +38,10 @@ public class EncryptedZipUtil {
     /**
      * 使用加密方式压缩文件或目录
      *
-     * @param src         待压缩的文件或目录路径
-     * @param dest        目标压缩文件存放路径（可以是目录或完整文件路径）
+     * @param src 待压缩的文件或目录路径
+     * @param dest 目标压缩文件存放路径（可以是目录或完整文件路径）
      * @param isCreateDir 是否保留源目录结构（true：保留目录结构；false：仅压缩目录下文件）
-     * @param passwd      压缩密码，若为空则不加密
+     * @param passwd 压缩密码，若为空则不加密
      * @return 压缩后生成的 ZIP 文件路径；若失败返回 null
      */
     public static String zipEncrypt(String src, String dest, boolean isCreateDir, String passwd) {
@@ -73,8 +76,8 @@ public class EncryptedZipUtil {
                 zipFile.addFile(srcFile, parameters);
             }
             return dest;
-        } catch (ZipException e) {
-            e.printStackTrace();
+        } catch (ZipException exception) {
+            exception.printStackTrace(System.err);
             return null;
         }
     }
@@ -82,10 +85,10 @@ public class EncryptedZipUtil {
     /**
      * 使用加密方式压缩文件或目录，并支持分卷压缩
      *
-     * @param src         待压缩的文件或目录路径
-     * @param dest        目标压缩文件存放路径（可以是目录或完整文件路径）
+     * @param src 待压缩的文件或目录路径
+     * @param dest 目标压缩文件存放路径（可以是目录或完整文件路径）
      * @param isCreateDir 是否保留源目录结构（true：保留目录结构；false：仅压缩目录下文件）
-     * @param passwd      压缩密码，若为空则不加密
+     * @param passwd 压缩密码，若为空则不加密
      * @param splitLength 分卷大小（单位：字节），例如 64*1024 表示每 64KB 一个分卷
      * @return 压缩后生成的 ZIP 文件路径；若失败返回 null
      */
@@ -118,8 +121,8 @@ public class EncryptedZipUtil {
                 zipFile.createSplitZipFile(Collections.singletonList(srcFile), parameters, true, splitLength);
             }
             return dest;
-        } catch (ZipException e) {
-            e.printStackTrace();
+        } catch (ZipException exception) {
+            exception.printStackTrace(System.err);
             return null;
         }
     }
@@ -127,17 +130,20 @@ public class EncryptedZipUtil {
     /**
      * 带进度回调的解压操作（支持加密压缩包）
      *
-     * 解压过程中会通过 Handler 发送以下状态消息：
-     *  - CompressStatus.START: 解压开始
-     *  - CompressStatus.HANDLING: 正在解压，Bundle 中包含键 CompressKeys.PERCENT 表示进度百分比
-     *  - CompressStatus.COMPLETED: 解压完成
-     *  - CompressStatus.ERROR: 解压出错，Bundle 中包含键 CompressKeys.ERROR 表示错误信息
+     * <p> 解压过程中会通过 Handler 发送以下状态消息：</p>
+     * <ul>
+     *    <li> {@link CompressStatus#START} 解压开始 </li>
+     *    <li> {@link CompressStatus#HANDLING} 正在解压，Bundle 中包含键 CompressKeys.PERCENT 表示进度百分比 </li>
+     *    <li> {@link CompressStatus#COMPLETED} 解压完成 </li>
+     *    <li> {@link CompressStatus#ERROR} 解压出错，Bundle 中包含键 CompressKeys.ERROR 表示错误信息 </li>
+     *    <li> CompressStatus.:  </li>
+     * </ul>
      *
-     * @param zipFile         待解压的 ZIP 文件对象
-     * @param dest            目标解压目录路径
-     * @param passwd          解压密码（如有）；如果为空，则不传密码
-     * @param charset         ZIP 文件编码（例如 "UTF-8"）
-     * @param handler         用于接收解压进度状态的 Handler
+     * @param zipFile 待解压的 ZIP 文件对象
+     * @param dest 目标解压目录路径
+     * @param passwd 解压密码（如有）；如果为空，则不传密码
+     * @param charset ZIP 文件编码（例如 "UTF-8"）
+     * @param handler 用于接收解压进度状态的 Handler
      * @param isDeleteZipFile 解压完成后是否删除原 ZIP 文件
      */
     public static void unzip(File zipFile, String dest, String passwd,
@@ -173,14 +179,14 @@ public class EncryptedZipUtil {
                         handler.sendMessage(msg);
                     } while (percentDone < 100);
                     handler.sendEmptyMessage(CompressStatus.COMPLETED);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException exception) {
                     bundle = new Bundle();
-                    bundle.putString(CompressKeys.ERROR, e.getMessage());
+                    bundle.putString(CompressKeys.ERROR, exception.getMessage());
                     msg = new Message();
                     msg.what = CompressStatus.ERROR;
                     msg.setData(bundle);
                     handler.sendMessage(msg);
-                    e.printStackTrace();
+                    exception.printStackTrace(System.err);
                 } finally {
                     if (isDeleteZipFile) {
                         zipFile.deleteOnExit();
@@ -190,8 +196,8 @@ public class EncryptedZipUtil {
             progressThread.start();
             // 在当前线程进行解压操作（extractAll 为阻塞方法）
             zFile.extractAll(dest);
-        } catch (ZipException e) {
-            e.printStackTrace();
+        } catch (ZipException exception) {
+            exception.printStackTrace(System.err);
         }
     }
 
@@ -199,7 +205,7 @@ public class EncryptedZipUtil {
      * 根据源文件和目标参数构建最终的 ZIP 文件存放路径
      * 如果 destParam 为空，则生成默认文件名；如果 destParam 为目录，则在目录下生成以源文件名命名的 ZIP 文件。
      *
-     * @param srcFile   待压缩的源文件或目录
+     * @param srcFile 待压缩的源文件或目录
      * @param destParam 目标路径参数（可以为完整文件路径或仅为目录）
      * @return 构建后的 ZIP 文件完整路径
      */
@@ -247,14 +253,20 @@ public class EncryptedZipUtil {
      * 内部类：压缩操作状态码，用于在进度回调中标识当前状态
      */
     public static class CompressStatus {
-        public static final int START = 0;      // 解压开始
-        public static final int HANDLING = 1;   // 正在解压
-        public static final int COMPLETED = 2;  // 解压完成
-        public static final int ERROR = 3;      // 解压出错
+
+        /// 解压开始
+        public static final int START = 0;
+        /// 正在解压
+        public static final int HANDLING = 1;
+        /// 解压完成
+        public static final int COMPLETED = 2;
+
+        /// 解压出错
+        public static final int ERROR = 3;
     }
 
     /**
-     * 内部类：进度回调中 Bundle 的 Key 常量
+     * 进度回调中 Bundle 的 Key 常量
      */
     public static class CompressKeys {
         public static final String PERCENT = "PERCENT";

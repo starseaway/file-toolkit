@@ -1,6 +1,6 @@
-package com.xinyi.utils.file.io;
+package com.xinyi.file.io;
 
-import com.xinyi.utils.file.entity.FileEntity;
+import com.xinyi.file.entity.FileEntity;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -64,7 +64,7 @@ public final class FileListUtil {
      */
     public static List<String> getFileList(String filePath, String fileExtension) {
         List<String> fileList = new ArrayList<>();
-        File dir = FileUtil.getFileByPath(filePath);
+        File dir = FileBasicUtil.getFileByPath(filePath);
         if (dir != null && dir.exists() && dir.isDirectory()) {
             File[] files = dir.listFiles();
             if (files != null) {
@@ -196,7 +196,7 @@ public final class FileListUtil {
      * @return 如果目录路径有效，则返回对应的 File 对象；否则返回 null，并记录错误日志
      */
     public static File getValidDirectory(String directoryPath) throws IOException {
-        File dir = FileUtil.getFileByPath(directoryPath);
+        File dir = FileBasicUtil.getFileByPath(directoryPath);
         if (dir == null || !dir.exists() || !dir.isDirectory()) {
             throw new IOException("无效的目录路径: " + directoryPath);
         }

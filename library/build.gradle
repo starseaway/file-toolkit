@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace 'com.xinyi.utils.file'
-    compileSdk 35
+    namespace 'com.xinyi.file'
+    compileSdk 36
 
     defaultConfig {
         minSdk 19

@@ -1,4 +1,4 @@
-package com.xinyi.utils.file.io;
+package com.xinyi.file.io;
 
 import androidx.annotation.Nullable;
 
@@ -10,9 +10,9 @@ import java.io.File;
  * @author 新一
  * @since 2025/3/17 10:09
  */
-public final class FileUtil {
+public final class FileBasicUtil {
 
-    private FileUtil() { /* 防止实例化 */ }
+    private FileBasicUtil() { }
 
     /**
      * 根据文件路径获取 File 对象；若路径为空或全为空白，则返回 null
@@ -85,6 +85,19 @@ public final class FileUtil {
     }
 
     /**
+     * 是否隐藏文件
+     *
+     * @param file 文件
+     */
+    public static boolean isHidden(File file) {
+        try {
+            return file.isHidden() || file.getName().startsWith(".");
+        } catch (Throwable throwable) {
+            return false;
+        }
+    }
+
+    /**
      * 判断字符串是否为 null 或全为空白字符
      *
      * @param s 待判断字符串
@@ -120,6 +133,7 @@ public final class FileUtil {
 
     /**
      * 返回不带扩展名的文件名称
+     *
      * @param filePath 文件路径
      * @return 文件名
      */
