@@ -1,4 +1,4 @@
-package com.xinyi.utils.file;
+package com.xinyi.app.file;
 
 import android.content.Context;
 

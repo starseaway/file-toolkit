@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace 'com.xinyi.utils.file'
-    compileSdk 35
+    namespace 'com.xinyi.app.file'
+    compileSdk 36
 
     defaultConfig {
-        applicationId "com.xinyi.utils.file"
-        minSdk 21
-        targetSdk 35
+        applicationId "com.xinyi.app.file"
+        minSdk 19
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
