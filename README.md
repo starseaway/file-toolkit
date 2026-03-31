@@ -4,7 +4,7 @@
   <img src="file-toolkit-logo.svg" width="500" alt="file-toolkit-logo">
 </div>
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.1-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green)
 ![API](https://img.shields.io/badge/API-19%2B-brightgreen)
 
