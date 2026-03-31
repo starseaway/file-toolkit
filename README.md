@@ -37,13 +37,13 @@ maven {
 
 ```groovy
 dependencies {
-    implementation 'com.github.starseaway:file-toolkit:1.1.0'
+    implementation 'com.github.starseaway:file-toolkit:1.1.1'
 }
 ```
 
 ```kotlin
 dependencies {
-    implementation("com.github.starseaway:file-toolkit:1.1.0")
+    implementation("com.github.starseaway:file-toolkit:1.1.1")
 }
 ```
 
